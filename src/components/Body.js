@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import RestaurantCard from "../components/RestaurantCard";
-import resData from "../utils/mockData";
 import ShimmerUI from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
+import OfflineMessage from "./offlineMessage";
 const Body = () => {
   console.log(RestaurantCard);
   //   let restaurantList = resData;
@@ -15,7 +16,6 @@ const Body = () => {
     );
     setFilterRestaurant(filtedList);
   };
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -31,7 +31,10 @@ const Body = () => {
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
-
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === false) {
+    return <OfflineMessage />;
+  }
   return restaurantList.length !== 0 ? (
     <div className="body">
       <div className="filter">
@@ -43,7 +46,7 @@ const Body = () => {
                 type="text"
                 className="search-box-input"
                 placeholder="Search for restaurants and food"
-                maxlength="200"
+                maxLength="200"
                 value={searchText}
                 onChange={(e) => {
                   setSearchText(e.target.value);
@@ -77,7 +80,11 @@ const Body = () => {
       <div className="rest-container">
         {filteredRestaurant?.map((items, index) => {
           return (
-            <Link to={"/restaurants/" + items.info.id} className="res-click">
+            <Link
+              key={index}
+              to={"/restaurants/" + items.info.id}
+              className="res-click"
+            >
               <RestaurantCard key={items.info.id} resData={items.info} />
             </Link>
           );
