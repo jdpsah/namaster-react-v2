@@ -1,4 +1,5 @@
-/* @import "tailwindcss"; */
+@import "tailwindcss";
+/*
 .header {
 justify-content: space-between;
 display: flex;
@@ -224,4 +225,4 @@ flex-grow: 1;
 
   .res-click {
     color: black;
-  }
+  } */

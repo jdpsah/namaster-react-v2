@@ -36,48 +36,45 @@ const Body = () => {
     return <OfflineMessage />;
   }
   return restaurantList.length !== 0 ? (
-    <div className="body">
-      <div className="filter">
-        <div className="search">
-          <div className="search-box-container">
-            <div className="search-box">
-              <input
-                id="search-input"
-                type="text"
-                className="search-box-input"
-                placeholder="Search for restaurants and food"
-                maxLength="200"
-                value={searchText}
-                onChange={(e) => {
-                  setSearchText(e.target.value);
-                }}
-              />
-            </div>
-            <div className="search-icon">
-              <button
-                className="icon-magnifier"
-                onClick={() => {
-                  //   if (searchText === "") {
-                  //     setRestaurantDate(restaurantList);
-                  //   }
-                  const filteredRest = restaurantList.filter((elem) =>
-                    elem.info.name
-                      .toLocaleLowerCase()
-                      .includes(searchText.toLocaleLowerCase())
-                  );
-                  setFilterRestaurant(filteredRest);
-                }}
-              >
-                Search
-              </button>
-            </div>
-          </div>
+    <div className="felx mt-3">
+      <div className="flex">
+        <div className="px-4 mx-4 items-center border-1 rounded-sm">
+          <input
+            id="search-input"
+            type="text"
+            placeholder="Search for restaurants and food"
+            maxLength="200"
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          />
         </div>
-        <button className="filter-icon" onClick={onFilterClick}>
-          Top Rated Restaurants
-        </button>
+        <div>
+          <button
+            className="px-4 mx-4 h-[30px] items-center bg-green-100 rounded-sm"
+            onClick={() => {
+              const filteredRest = restaurantList.filter((elem) =>
+                elem.info.name
+                  .toLocaleLowerCase()
+                  .includes(searchText.toLocaleLowerCase())
+              );
+              setFilterRestaurant(filteredRest);
+            }}
+          >
+            Search
+          </button>
+        </div>
+        <div>
+          <button
+            className="px-4 mx-2 h-[30px] items-center bg-gray-100 rounded-sm"
+            onClick={onFilterClick}
+          >
+            Top Rated Restaurants
+          </button>
+        </div>
       </div>
-      <div className="rest-container">
+      <div className="rest-container flex flex-wrap">
         {filteredRestaurant?.map((items, index) => {
           return (
             <Link
